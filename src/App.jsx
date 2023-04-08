@@ -1,7 +1,6 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
-import styled from "styled-components";
-import blackboard from './img/blackboard.png';
+import Template from './components/Template';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -9,16 +8,11 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-
 function App() {
   return (
     <>
       <GlobalStyle />
-      <Image src={blackboard} alt="Blackboard" />
+      <Template></Template>
     </>
   );
 }
