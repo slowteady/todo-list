@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-function App() {
+const App = () => {
   return (
     <>
       <GlobalStyle />
