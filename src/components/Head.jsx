@@ -5,17 +5,18 @@ const HeadBox = styled.div`
   padding: 28px 22px 14px;
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid rgb(90 152 93);
   h1 {
     margin: 0;
     font-size: 28px;
-    color: #343a40;
+    color: rgb(31 32 33);
   }
   .day {
     font-size: 17px;
     margin-top: 5px;
   }
   .tasks-left {
-    color: #cb6924;
+    color: rgb(255 115 14);
     font-size: 15px;
     font-weight: bold;
     margin-top: 5px;
