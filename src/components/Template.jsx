@@ -14,8 +14,6 @@ const Components = styled.div`
   flex-direction: column;
   width: 600px;
   height: 400px;
-  // border-radius: 16px;
-  // box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
 `;
 
 const Image = styled.img`
