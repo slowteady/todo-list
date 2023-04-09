@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useStateContext } from "../Context";
 
 const HeadBox = styled.div`
   padding: 28px 22px 14px;
@@ -24,6 +25,9 @@ const HeadBox = styled.div`
 `;
 
 const Head = () => {
+  const todos = useStateContext();
+  const left = todos.filter(todo => !todo.done).length;
+
   return (
     <>
       <HeadBox>
@@ -31,7 +35,7 @@ const Head = () => {
           <h1>TODAY</h1>
           <div className="day">수요일</div>
         </div>
-        <div className="tasks-left">2 LEFT</div>
+        <div className="tasks-left">{left} LEFT</div>
       </HeadBox>
     </>
   );
