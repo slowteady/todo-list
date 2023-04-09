@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Items from "./Items";
+import Create from "./Create";
 
 const ListBlock = styled.div`
   flex: 1;
@@ -10,12 +11,15 @@ const ListBlock = styled.div`
 
 const List = () => {
   return (
-    <ListBlock>
-      <Items text="테스트 아이템" done={true}></Items>
-      <Items text="테스트 아이템2" done={true}></Items>
-      <Items text="테스트 아이템3" done={false}></Items>
-      <Items text="테스트 아이템4" done={false}></Items>
-    </ListBlock>
+    <>
+      <ListBlock>
+        <Items text="테스트 아이템" done={true}></Items>
+        <Items text="테스트 아이템2" done={true}></Items>
+        <Items text="테스트 아이템3" done={false}></Items>
+        <Items text="테스트 아이템4" done={false}></Items>
+      </ListBlock>
+      <Create />
+    </>
   );
 };
 
