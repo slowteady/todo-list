@@ -9,7 +9,6 @@ const TemplateBox = styled.div`
 `;
 
 const Components = styled.div`
-  background: #efef56;
   position: absolute;
   display: flex;
   flex-direction: column;

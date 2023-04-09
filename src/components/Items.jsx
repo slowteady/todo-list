@@ -27,12 +27,12 @@ const ItemBox = styled.div`
 const Text = styled.div`
   max-width: 500px;
   flex: 1;
-  color: #495057;
+  color: #ced4da;
   font-size: 18px;
   ${(props) =>
     props.done &&
     css`
-      color: #ced4da;
+      color: #495057;
     `}
 `;
 const CheckBox = styled.div`
@@ -41,14 +41,14 @@ const CheckBox = styled.div`
   display: flex;
   margin-right: 10px;
   border-radius: 16px;
-  border: 1px solid rgb(55 56 58);
+  border: 1px solid #38d9a9;
   font-size: 18px;
   cursor: pointer;
   ${(props) =>
     props.done &&
     css`
-      border: 1px solid #38d9a9;
-      color: #38d9a9;
+      border: 1px solid rgb(55 56 58);
+      color: rgb(55 56 58);
     `}
 `;
 
