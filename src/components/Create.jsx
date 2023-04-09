@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState, memo } from "react";
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
 import { useTodoDispatch, useTodoNextId } from "../Context";
@@ -70,7 +70,7 @@ const Create = () => {
   const nextId = useTodoNextId();
 
   const onToggle = () => setOpen(!open);
-  const onChange = (e) => setValue(e.target.value);
+  const onChange = useCallback((e) => setValue(e.target.value), []);
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch({
@@ -107,4 +107,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default memo(Create);
