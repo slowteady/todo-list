@@ -12,7 +12,6 @@ const Remove = styled.div`
   &:hover {
     color: #ff6b6b;
   }
-  
 `;
 
 const ItemBox = styled.div`
