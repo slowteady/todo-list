@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Items from "./Items";
+import { useStateContext } from "../Context";
 
 const ListBlock = styled.div`
   flex: 1;
@@ -9,15 +10,14 @@ const ListBlock = styled.div`
 `;
 
 const List = () => {
+  const todos = useStateContext();
+
   return (
-    <>
-      <ListBlock>
-        <Items text="테스트 아이템" done={true}></Items>
-        <Items text="테스트 아이템2" done={true}></Items>
-        <Items text="테스트 아이템3" done={false}></Items>
-        <Items text="테스트 아이템4" done={false}></Items>
-      </ListBlock>
-    </>
+    <ListBlock>
+      {todos.map((todo) => (
+        <Items key={todo.id} id={todo.id} text={todo.text} done={todo.done} />
+      ))}
+    </ListBlock>
   );
 };
 
