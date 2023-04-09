@@ -25,15 +25,25 @@ const HeadBox = styled.div`
 `;
 
 const Head = () => {
+  // Todo State
   const todos = useStateContext();
-  const left = todos.filter(todo => !todo.done).length;
+  const left = todos.filter((todo) => !todo.done).length;
+
+  // 날짜 
+  const today = new Date();
+  const dateString = today.toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const dayName = today.toLocaleDateString('ko-KR', { weekday: 'long' });
 
   return (
     <>
       <HeadBox>
         <div className="dateBox">
-          <h1>TODAY</h1>
-          <div className="day">수요일</div>
+          <h1>{dateString}</h1>
+          <div className="day">{dayName}</div>
         </div>
         <div className="tasks-left">{left} LEFT</div>
       </HeadBox>
