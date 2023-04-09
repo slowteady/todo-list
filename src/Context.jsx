@@ -32,7 +32,7 @@ const StateContext = createContext();
 const DispatchContext = createContext();
 const NextIdContext = createContext();
 
-export const useStateContext = () => {
+export const useTodoState = () => {
   const context = useContext(StateContext);
   if (!context) {
     throw new Error("Cannot find TodoProvider");
@@ -40,7 +40,7 @@ export const useStateContext = () => {
   return context;
 };
 
-export const useDispatchContext = () => {
+export const useTodoDispatch = () => {
   const context = useContext(DispatchContext);
   if (!context) {
     throw new Error("Cannot find TodoProvider");
@@ -48,7 +48,7 @@ export const useDispatchContext = () => {
   return context;
 };
 
-export const useNextIdContext = () => {
+export const useTodoNextId = () => {
   const context = useContext(NextIdContext);
   if (!context) {
     throw new Error("Cannot find TodoProvider");

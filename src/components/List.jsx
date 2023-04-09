@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Items from "./Items";
-import { useStateContext } from "../Context";
+import { useTodoState } from "../Context";
 
 const ListBlock = styled.div`
   flex: 1;
@@ -10,7 +10,7 @@ const ListBlock = styled.div`
 `;
 
 const List = () => {
-  const todos = useStateContext();
+  const todos = useTodoState();
 
   return (
     <ListBlock>

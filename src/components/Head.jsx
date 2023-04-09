@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useStateContext } from "../Context";
+import { useTodoState } from "../Context";
 
 const HeadBox = styled.div`
   padding: 28px 22px 14px;
@@ -26,7 +26,7 @@ const HeadBox = styled.div`
 
 const Head = () => {
   // Todo State
-  const todos = useStateContext();
+  const todos = useTodoState();
   const left = todos.filter((todo) => !todo.done).length;
 
   // 날짜 
