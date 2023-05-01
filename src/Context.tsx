@@ -1,6 +1,28 @@
-import React, { createContext, useContext, useReducer, useRef } from "react";
+import React, {
+  ReactNode,
+  createContext,
+  useReducer,
+  useRef,
+  useContext,
+} from "react";
 
-const reducer = (state, action) => {
+type Todo = {
+  id: number;
+  text: string;
+  done: boolean;
+};
+
+type Action =
+  | { type: "CREATE"; todo: Todo }
+  | { type: "TOGGLE"; id: number }
+  | { type: "REMOVE"; id: number }
+  | { type: never };
+
+const assertNever = (value: never): never  => {
+  throw new Error(`Unhandled action type: ${value}`);
+}
+
+const reducer = (state: Todo[], action: Action): Todo[] | void => {
   switch (action.type) {
     case "CREATE":
       return state.concat(action.todo);
@@ -11,7 +33,7 @@ const reducer = (state, action) => {
     case "REMOVE":
       return state.filter((todo) => todo.id !== action.id);
     default:
-      throw new Error(`Unhandled action type: ${action.type}`);
+      assertNever(action);
   }
 };
 
@@ -43,7 +65,7 @@ export const useTodoNextId = () => {
   return context;
 };
 
-export const TodoProvider = ({ children }) => {
+export const TodoProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, []);
   const nextId = useRef(5);
 
