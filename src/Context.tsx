@@ -4,6 +4,8 @@ import React, {
   useReducer,
   useRef,
   useContext,
+  Dispatch,
+  Reducer,
 } from "react";
 
 type Todo = {
@@ -18,11 +20,14 @@ type Action =
   | { type: "REMOVE"; id: number }
   | { type: never };
 
-const assertNever = (value: never): never  => {
+const assertNever = (value: never): never => {
   throw new Error(`Unhandled action type: ${value}`);
-}
+};
 
-const reducer = (state: Todo[], action: Action): Todo[] | void => {
+type DispatchType = Dispatch<Action>;
+type ReducerType = Reducer<Todo[], Action>;
+
+const reducer = (state: Todo[], action: Action): Todo[] | undefined => {
   switch (action.type) {
     case "CREATE":
       return state.concat(action.todo);
@@ -37,9 +42,9 @@ const reducer = (state: Todo[], action: Action): Todo[] | void => {
   }
 };
 
-const StateContext = createContext();
-const DispatchContext = createContext();
-const NextIdContext = createContext();
+const StateContext = createContext<Todo[] | null>(null);
+const DispatchContext = createContext<DispatchType | null>(null);
+const NextIdContext = createContext<number | null>(null);
 
 export const useTodoState = () => {
   const context = useContext(StateContext);
@@ -66,13 +71,13 @@ export const useTodoNextId = () => {
 };
 
 export const TodoProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(reducer, []);
+  const [state, dispatch] = useReducer<ReducerType>(reducer, []);
   const nextId = useRef(5);
 
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
-        <NextIdContext.Provider value={nextId}>
+        <NextIdContext.Provider value={nextId.current}>
           {children}
         </NextIdContext.Provider>
       </DispatchContext.Provider>
