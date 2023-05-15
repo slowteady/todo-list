@@ -17,8 +17,7 @@ type Todo = {
 type Action =
   | { type: "CREATE"; todo: Todo }
   | { type: "TOGGLE"; id: number }
-  | { type: "REMOVE"; id: number }
-  | { type: never };
+  | { type: "REMOVE"; id: number };
 
 const assertNever = (value: never): never => {
   throw new Error(`Unhandled action type: ${value}`);
@@ -27,7 +26,7 @@ const assertNever = (value: never): never => {
 type DispatchType = Dispatch<Action>;
 type ReducerType = Reducer<Todo[], Action>;
 
-const reducer = (state: Todo[], action: Action): Todo[] | undefined => {
+const reducer = (state: Todo[], action: Action): any => {
   switch (action.type) {
     case "CREATE":
       return state.concat(action.todo);
@@ -70,7 +69,7 @@ export const useTodoNextId = () => {
   return context;
 };
 
-export const TodoProvider = ({ children }: { children: ReactNode }) => {
+export const TodoProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer<ReducerType>(reducer, []);
   const nextId = useRef(5);
 
