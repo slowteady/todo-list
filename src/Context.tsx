@@ -4,24 +4,31 @@ import React, {
   Reducer,
   useContext,
   useRef,
-  RefObject,
+  MutableRefObject,
 } from "react";
 import { FunctionComponent } from "react";
 
 interface State {
-  id: number;
+  id: number | null;
   text: string;
   done: boolean;
 }
 interface Action {
-  type: "CREATE" | "TOGGLE";
-  todo: State[];
+  type: "CREATE" | "TOGGLE" | "REMOVE";
+  id?: number | null;
+  todo?: State;
 }
 
 const todoReducer = (state: State[], action: Action): any => {
   switch (action.type) {
     case "CREATE":
       return [...state, action.todo];
+    case "TOGGLE":
+      return state.map((todo) =>
+        todo.id === action.id ? { ...todo, done: !todo.done } : todo
+      );
+    case "REMOVE":
+      return state.filter((todo) => todo.id !== action.id);
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -29,7 +36,7 @@ const todoReducer = (state: State[], action: Action): any => {
 
 const TodoStateContext = createContext<State[] | null>([]);
 const TodoDispatchContext = createContext<React.Dispatch<Action>>(() => {});
-const TodoIdContext = createContext<RefObject<number> | null>(null);
+const TodoIdContext = createContext<MutableRefObject<number> | null>(null);
 
 export const TodoProvider: FunctionComponent<ChildrenProps> = ({
   children,
@@ -52,7 +59,7 @@ export const TodoProvider: FunctionComponent<ChildrenProps> = ({
 export const useTodoState = () => {
   const context = useContext(TodoStateContext);
   if (!context) {
-    throw new Error('Cannot find TodoProvider');
+    throw new Error("Cannot find TodoProvider");
   }
   return context;
 };
@@ -60,7 +67,7 @@ export const useTodoState = () => {
 export const useTodoDispatch = () => {
   const context = useContext(TodoDispatchContext);
   if (!context) {
-    throw new Error('Cannot find TodoProvider');
+    throw new Error("Cannot find TodoProvider");
   }
   return context;
 };
@@ -68,7 +75,7 @@ export const useTodoDispatch = () => {
 export const useTodoId = () => {
   const context = useContext(TodoIdContext);
   if (!context) {
-    throw new Error('Cannot find TodoProvider');
+    throw new Error("Cannot find TodoProvider");
   }
   return context;
 };
