@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import styled, { css } from "styled-components";
 import { MdDone, MdDelete } from "react-icons/md";
+import { useTodoDispatch } from "../Context";
 
 const Remove = styled.div`
   display: flex;
@@ -55,18 +56,17 @@ interface checkBoxProps {
 }
 
 interface childrenNode extends checkBoxProps {
-  id: number;
+  id: number | null;
   text: string;
 }
 
-const onRemove = () => {
-
-}
-
 const Items: FunctionComponent<childrenNode> = ({ id, text, done }) => {
+  const dispatch = useTodoDispatch();
+  const onToggle = () => dispatch({ type: "TOGGLE", id });
+  const onRemove = () => dispatch({ type: "REMOVE", id });
   return (
     <ItemBox>
-      <CheckBox done={done}>
+      <CheckBox onClick={onToggle} done={done}>
         {done && <MdDone />}
       </CheckBox>
       <Text done={done}>{text}</Text>

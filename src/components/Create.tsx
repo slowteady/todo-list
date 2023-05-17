@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
+import { useTodoDispatch, useTodoId } from "../Context";
 
 interface buttonProps {
   open: boolean;
@@ -64,9 +65,29 @@ const Input = styled.input`
 
 const Create = () => {
   const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {};
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {};
+  const dispatch = useTodoDispatch();
+  const id = useTodoId();
+  
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch({
+      type: "CREATE",
+      todo: {
+        id: id.current,
+        text: value,
+        done: false,
+      },
+    });
+    setValue("");
+    setOpen(false);
+    id.current += 1;
+  };
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.currentTarget.value);
+  };
   const onToggle = () => {
     setOpen(!open);
   };
@@ -78,7 +99,7 @@ const Create = () => {
           <form onSubmit={onSubmit}>
             <Input
               onChange={onChange}
-              value={1} // state 처리
+              value={value}
               autoFocus
               placeholder="Todo 입력 후 Enter를 누르세요"
             />
