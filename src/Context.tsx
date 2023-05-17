@@ -1,4 +1,11 @@
-import React, { createContext, useReducer, Reducer, ReactNode, useContext, useRef, RefObject } from "react";
+import React, {
+  createContext,
+  useReducer,
+  Reducer,
+  useContext,
+  useRef,
+  RefObject,
+} from "react";
 import { FunctionComponent } from "react";
 
 interface State {
@@ -36,20 +43,32 @@ export const TodoProvider: FunctionComponent<ChildrenProps> = ({
   return (
     <TodoStateContext.Provider value={state}>
       <TodoDispatchContext.Provider value={dispatch}>
-        {children}
+        <TodoIdContext.Provider value={id}>{children}</TodoIdContext.Provider>
       </TodoDispatchContext.Provider>
     </TodoStateContext.Provider>
   );
 };
 
 export const useTodoState = () => {
-  return useContext(TodoStateContext);
-}
+  const context = useContext(TodoStateContext);
+  if (!context) {
+    throw new Error('Cannot find TodoProvider');
+  }
+  return context;
+};
 
-export const useTodoDispatch = () =>  {
-  return useContext(TodoDispatchContext);
-}
+export const useTodoDispatch = () => {
+  const context = useContext(TodoDispatchContext);
+  if (!context) {
+    throw new Error('Cannot find TodoProvider');
+  }
+  return context;
+};
 
 export const useTodoId = () => {
-  return useContext(TodoIdContext);
-}
+  const context = useContext(TodoIdContext);
+  if (!context) {
+    throw new Error('Cannot find TodoProvider');
+  }
+  return context;
+};
