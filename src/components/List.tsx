@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Items from "./Items";
+import { useTodoState } from "../Context";
 
 const ListBlock = styled.div`
   flex: 1;
@@ -9,12 +10,15 @@ const ListBlock = styled.div`
 `;
 
 const List = () => {
+  const todos = useTodoState();
+
   return (
     <ListBlock>
-        {/* map으로 반복문 처리 */} 
-        <Items key={1} id={1} text={"test"} done={false} />         
+      {todos.map((todo) => (
+        <Items key={todo.id} id={todo.id} text={todo.text} done={todo.done} />
+      ))}
     </ListBlock>
-    );
+  );
 };
 
 export default List;
