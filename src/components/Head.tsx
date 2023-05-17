@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useTodoState } from "../Context";
 
 const HeadBox = styled.div`
   padding: 28px 22px 14px;
@@ -33,13 +34,16 @@ const HeadBox = styled.div`
  const dayName = today.toLocaleDateString('ko-KR', { weekday: 'long' });
 
 const Head = () => {
+  const todos = useTodoState();
+  const left = todos.filter((todo) => !todo.done).length;
+
   return (
     <HeadBox>
       <div className="datebox">
         <h1>{dateString}</h1>
         <div className="day">{dayName}</div>
       </div>
-      <div className="tasks-left">[leftState] LEFT</div>
+      <div className="tasks-left">{left} LEFT</div>
     </HeadBox>
   );
 };
