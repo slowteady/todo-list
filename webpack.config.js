@@ -17,6 +17,17 @@ module.exports = {
         use: "ts-loader", // ts -> js 로 컴파일해줌
         exclude: /node_modules/, // 제외할 폴더
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "images/[name].[ext]",
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {
