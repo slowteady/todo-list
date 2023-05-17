@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, Reducer, ReactNode } from "react";
+import React, { createContext, useReducer, Reducer, ReactNode, useContext, useRef, RefObject } from "react";
 import { FunctionComponent } from "react";
 
 interface State {
@@ -22,6 +22,7 @@ const todoReducer = (state: State[], action: Action): any => {
 
 const TodoStateContext = createContext<State[] | null>([]);
 const TodoDispatchContext = createContext<React.Dispatch<Action>>(() => {});
+const TodoIdContext = createContext<RefObject<number> | null>(null);
 
 export const TodoProvider: FunctionComponent<ChildrenProps> = ({
   children,
@@ -30,6 +31,8 @@ export const TodoProvider: FunctionComponent<ChildrenProps> = ({
     todoReducer,
     []
   );
+  const id = useRef(0);
+
   return (
     <TodoStateContext.Provider value={state}>
       <TodoDispatchContext.Provider value={dispatch}>
@@ -38,3 +41,15 @@ export const TodoProvider: FunctionComponent<ChildrenProps> = ({
     </TodoStateContext.Provider>
   );
 };
+
+export const useTodoState = () => {
+  return useContext(TodoStateContext);
+}
+
+export const useTodoDispatch = () =>  {
+  return useContext(TodoDispatchContext);
+}
+
+export const useTodoId = () => {
+  return useContext(TodoIdContext);
+}
